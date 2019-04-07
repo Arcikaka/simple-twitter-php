@@ -10,7 +10,7 @@ class User
     /**
      * @var string
      */
-    private $username;
+    protected $username;
     /**
      * @var string
      */
