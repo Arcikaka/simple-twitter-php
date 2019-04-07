@@ -20,6 +20,8 @@ require_once __DIR__ . '/../src/Tweet.php';
     $tweet = new Tweet();
     $tweets = $tweet::loadAllTweets($conn);
 
+    var_dump($tweets);
+
     foreach ($tweets as $value => $tweet) {
 
         //  object(Tweet)[6]
@@ -28,7 +30,7 @@ require_once __DIR__ . '/../src/Tweet.php';
         //      private 'tweet' => string 'Nah, that's cool' (length=16)
         //      private 'creationDate' => string '2019-04-07 13:05:35' (length=19)
 
-        echo '<div><h1>Użytkownik : ' . $tweet->getUsername() . '</div></h1><br>
+        echo '<div><h1>Użytkownik : ' . $tweet['username'] . ' </div></h1><br>
                 <div>' . $tweet->getTweet() . '</div></br><div>Data utworzenia: ' . $tweet->getCreationDate() . '<br><hr>';
     }
 

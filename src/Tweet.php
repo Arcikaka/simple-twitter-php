@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/User.php';
 
-class Tweet extends User
+class Tweet
 {
     /**
      * @var int
@@ -22,7 +21,6 @@ class Tweet extends User
 
     public function __construct()
     {
-        parent::__construct();
         $this->id = -1;
         $this->userId = '';
         $this->tweet = '';
@@ -166,11 +164,15 @@ class Tweet extends User
         $ret = [];
         $sql = "SELECT * FROM Tweets JOIN Users U on Tweets.userId = U.id";
         $result = $conn->query($sql);
+        $user = new User();
+        $username = $user->getUsername();
         if ($result !== false && $result->rowCount() != 0) {
             foreach ($result as $row) {
                 $loadedTweet = new Tweet();
+                $user = new User();
+                $username = $user->getUsername();
                 $loadedTweet->id = $row['id'];
-                $loadedTweet->username = $row['username'];
+                $loadedTweet->username = $username;
                 $loadedTweet->userId = $row['userId'];
                 $loadedTweet->tweet = $row['tweet'];
                 $loadedTweet->creationDate = $row['creationDate'];
