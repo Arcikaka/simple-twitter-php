@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/functions.php';
 include __DIR__ . '/db.php';
+$userSession = $_SESSION['user'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,6 +18,7 @@ include __DIR__ . '/db.php';
     <a href="index.php?page=login">Logowanie</a>
     <a href="index.php?page=register">Rejestracja</a>
     <a href="index.php">Strona Główna</a>
+    <a href="index.php?page=allUserTweets&id=<?php echo $userSession['id'] ?>">Twoje Tweety</a>
 </div>
 <?php
 //zakladamy, ze strony sa wybierane przez parametr GET -> page
