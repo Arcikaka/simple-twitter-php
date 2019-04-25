@@ -81,7 +81,8 @@ class Tweet
      */
     public function setCreationDate(): void
     {
-        $this->creationDate = new DateTime('now');
+        $datetime = date_create()->format('Y-m-d H:i:s');
+        $this->creationDate = $datetime;
     }
 
     public function saveToDBTweets(PDO $conn)
@@ -162,7 +163,7 @@ class Tweet
     static public function loadAllTweets(PDO $conn)
     {
         $ret = [];
-        $sql = "SELECT * FROM Tweets JOIN Users U on Tweets.userId = U.id";
+        $sql = "SELECT * FROM Tweets";
         $result = $conn->query($sql);
         if ($result !== false && $result->rowCount() != 0) {
             foreach ($result as $row) {
