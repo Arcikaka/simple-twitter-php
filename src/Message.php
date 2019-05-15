@@ -10,11 +10,11 @@ class Message
     /**
      * @var int
      */
-    private $sentBy;
+    private $sendBy;
     /**
      * @var int
      */
-    private $sentTo;
+    private $sendTo;
     /**
      * @var string
      */
@@ -31,8 +31,8 @@ class Message
     public function __construct()
     {
         $this->id = -1;
-        $this->sentBy = '';
-        $this->sentTo = '';
+        $this->sendBy = '';
+        $this->sendTo = '';
         $this->creationDate = '';
         $this->message = '';
         $this->seen = '';
@@ -43,14 +43,14 @@ class Message
 
         if ($this->id === -1) {
 
-            $stmt = $conn->prepare("INSERT INTO MessageMailbox SET message=:message, creationDate =:creationDate, sentBy =:sentBy, sentTo=:sentTo, seen =:seen");
+            $stmt = $conn->prepare("INSERT INTO MessageMailbox SET message=:message, creationDate =:creationDate, sendBy =:sentBy, sendTo=:sentTo, seen =:seen");
 
             try {
                 $result = $stmt->execute([
                     'message' => $this->message,
                     'creationDate' => $this->creationDate,
-                    'sentBy' => $this->sentBy,
-                    'sentTo' => $this->sentTo,
+                    'sentBy' => $this->sendBy,
+                    'sentTo' => $this->sendTo,
                     'seem' => $this->seen
                 ]);
 
@@ -62,12 +62,12 @@ class Message
         } else {
             try {
                 $stmt = $conn->prepare(
-                    'UPDATE MessageMailbox SET message=:message, creationDate =:creationDate, sentBy =:sentBy, sentTo=:sentTo WHERE id=:id');
+                    'UPDATE MessageMailbox SET message=:message, creationDate =:creationDate, sendBy =:sentBy, sendTo=:sentTo WHERE id=:id');
                 $result = $stmt->execute([
                     'message' => $this->message,
                     'creationDate' => $this->creationDate,
-                    'sentBy' => $this->sentBy,
-                    'sentTo' => $this->sentTo,
+                    'sentBy' => $this->sendBy,
+                    'sentTo' => $this->sendTo,
                     'seem' => $this->seen,
                     'id' => $this->id
                 ]);
@@ -89,8 +89,8 @@ class Message
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $loadedMessage = new Message();
             $loadedMessage->id = $row['id'];
-            $loadedMessage->sentBy = $row['sentBy'];
-            $loadedMessage->sentTo = $row['sentTo'];
+            $loadedMessage->sendBy = $row['sendBy'];
+            $loadedMessage->sendTo = $row['sendTo'];
             $loadedMessage->creationDate = $row['creationDate'];
             $loadedMessage->message = $row['message'];
             $loadedMessage->seen = $row['seen'];
@@ -99,18 +99,18 @@ class Message
         return null;
     }
 
-    static public function loadAllMessageSentByUserId(PDO $conn, $userId)
+    static public function loadAllMessageSendByUserId(PDO $conn, $userId)
     {
         $ret = [];
-        $stmt = $conn->prepare("SELECT * FROM MessageMailbox WHERE sentBy = :sentBy");
+        $stmt = $conn->prepare("SELECT * FROM MessageMailbox WHERE sendBy = :sentBy");
         $result = $stmt->execute(['sentBy' => $userId]);
         if ($result !== false && $stmt->rowCount() != 0) {
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($row as $message) {
                 $loadedMessage = new Message();
                 $loadedMessage->id = $message['id'];
-                $loadedMessage->sentBy = $message['sentBy'];
-                $loadedMessage->sentTo = $message['sentTo'];
+                $loadedMessage->sendBy = $message['sendBy'];
+                $loadedMessage->sendTo = $message['sendTo'];
                 $loadedMessage->creationDate = $message['creationDate'];
                 $loadedMessage->message = $message['message'];
                 $loadedMessage->seen = $message['seen'];
@@ -120,18 +120,18 @@ class Message
         return $ret;
     }
 
-    static public function loadAllMessageSentToUserId(PDO $conn, $userId)
+    static public function loadAllMessageSendToUserId(PDO $conn, $userId)
     {
         $ret = [];
-        $stmt = $conn->prepare("SELECT * FROM MessageMailbox WHERE sentTo = :sentTo");
+        $stmt = $conn->prepare("SELECT * FROM MessageMailbox WHERE sendTo = :sentTo");
         $result = $stmt->execute(['sentTo' => $userId]);
         if ($result !== false && $stmt->rowCount() != 0) {
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($row as $message) {
                 $loadedMessage = new Message();
                 $loadedMessage->id = $message['id'];
-                $loadedMessage->sentBy = $message['sentBy'];
-                $loadedMessage->sentTo = $message['sentTo'];
+                $loadedMessage->sendBy = $message['sendBy'];
+                $loadedMessage->sendTo = $message['sendTo'];
                 $loadedMessage->creationDate = $message['creationDate'];
                 $loadedMessage->message = $message['message'];
                 $loadedMessage->seen = $message['seen'];
@@ -153,33 +153,33 @@ class Message
     /**
      * @return int
      */
-    public function getSentBy(): int
+    public function getSendBy(): int
     {
-        return $this->sentBy;
+        return $this->sendBy;
     }
 
     /**
-     * @param int $sentBy
+     * @param int $sendBy
      */
-    public function setSentBy(int $sentBy): void
+    public function setSendBy(int $sendBy): void
     {
-        $this->sentBy = $sentBy;
+        $this->sendBy = $sendBy;
     }
 
     /**
      * @return int
      */
-    public function getSentTo(): int
+    public function getSendTo(): int
     {
-        return $this->sentTo;
+        return $this->sendTo;
     }
 
     /**
-     * @param int $sentTo
+     * @param int $sendTo
      */
-    public function setSentTo(int $sentTo): void
+    public function setSendTo(int $sendTo): void
     {
-        $this->sentTo = $sentTo;
+        $this->sendTo = $sendTo;
     }
 
     /**
@@ -199,9 +199,9 @@ class Message
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
         return $this->creationDate;
     }

@@ -15,10 +15,13 @@ $userSession = $_SESSION['user'];
 </head>
 <body>
 <div>
-    <a href="index.php?page=login">Logowanie</a>
-    <a href="index.php?page=register">Rejestracja</a>
-    <a href="index.php">Strona Główna</a>
-    <a href="index.php?page=allUserTweets&id=<?php echo $userSession['id'] ?>">Twoje Tweety</a>
+    <a href="index.php?page=login">Login</a>
+    <a href="index.php?page=register">Register</a>
+    <a href="index.php">Main Page</a>
+    <a href="index.php?page=allUserTweets&id=<?php echo $userSession['id'] ?>">My Tweets!</a>
+    <a href="index.php?page=messageReceive&id=<?php echo $userSession['id'] ?>">Message Received</a>
+    <a href="index.php?page=messageSend&id=<?php echo $userSession['id'] ?>">Message Send</a>
+
 </div>
 <?php
 //zakladamy, ze strony sa wybierane przez parametr GET -> page
