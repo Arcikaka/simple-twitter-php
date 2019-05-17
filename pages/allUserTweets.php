@@ -18,7 +18,11 @@ addComment();
 ?>
 
 <div>
-    <h2>Tweety użytkownika: <?php echo $user->getUsername() ?> </h2>
+    <h2>User Tweets: <?php echo $user->getUsername();         if($userSession['id'] != $user->getId()) {
+            echo '<form action="index.php?page=messageCreate" method="post"><input name="create" type="submit" value="Send Message">
+                    <input type="hidden" name="id" value="'.$user->getId() . '"></form>';
+        }
+?> </h2>
     <div>
         <?php
         foreach ($tweet as $value => $singleTweet) {
@@ -26,15 +30,15 @@ addComment();
             $allComments = Comment::loadAllCommentsByPostId($conn, $postId);
             $userId = $singleTweet->getUserId();
             $tweetUser = User::loadUserById($conn, $userId);
-            echo '<div>' . $singleTweet->getTweet() . '</div></br><div>Data utworzenia: ' . $singleTweet->getCreationDate() . '<br><hr>';
+            echo '<div>' . $singleTweet->getTweet() . '</div></br><div>Creation date: ' . $singleTweet->getCreationDate() . '<br><hr>';
             foreach ($allComments as $value => $singleComment) {
                 $userCommentId = $singleComment->getUserId();
                 $userCommenter = User::loadUserById($conn, $userCommentId);
 
-                echo '<div>Komentarze : <br>
-                    <h5><div>Komentarz o id : ' . $singleComment->getId() . '<br></div>
+                echo '<div>Comments : <br>
+                    <h5><div>Comment id : ' . $singleComment->getId() . '<br></div>
                     <div>' . $singleComment->getText() . '</div><br>
-                    Stworzony przez :' . $userCommenter->getUsername() . ' dnia: ' . $singleComment->getCreationDate() . '<hr></h5>';
+                    Created By:' . $userCommenter->getUsername() . ' on: ' . $singleComment->getCreationDate() . '<hr></h5>';
             }
 
 

@@ -13,6 +13,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 foreach ($allMessage as $value => $message){
     $userSend = USER::loadUserById($conn,$message->getSendTo());
-    echo '<div>Message sent by: ' . $userSend->getUsername() . ' , date: ' . $message->getCreationDate() . '</div><br>
+    echo '<hr><div>Message sent to: ' . $userSend->getUsername() . ' , date: ' . $message->getCreationDate() . '</div><br>
             <div><a href="index.php?page=message&id=' . $message->getId() . '">Click here for a message</a><br>';
 }

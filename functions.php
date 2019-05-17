@@ -8,10 +8,10 @@ function isLogged()
 
 function checkLoginOrRedirect()
 {
-    //sprawdzamy fakt zalogowania użytkownika i przekerowujemy
+    //we check if user is logged and we redirect him
     if (!isLogged()) {
-        //przekierowujemy
-        ob_end_clean();//czyszczenie bufor
+        //redirect
+        ob_end_clean();//buffer cleaning
         header('Location: index.php?page=login');
         exit;
     }

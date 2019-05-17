@@ -1,6 +1,6 @@
 <?php
-//ta podstrona dostepna jest do nie zalogowanych
-echo 'logowanie';
+//this site is available for not logged
+echo 'log in';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    //szukamy uzytkownika po adresie email w bazie.
-    $user = User::loadUserByEmail($conn,$email); //to zwraca obiekt user lub null
-    //jesli istnieje to sprawdzamy czy haslo jest prawidlowe
+    //search for user by email in db
+    $user = User::loadUserByEmail($conn,$email); //returns object or null
+    //if exist we check password
     if (!is_null($user)) {
         if (password_verify($password, $user->getHashPass())) {
             $_SESSION['isLogged'] = true;
@@ -21,19 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: index.php');
         }
     }
-    //jesli tak ustawiamy dane do sejsi aby fukncja sprawdzajaco zwracala nam true
 
 
 }
 ?>
 
 <form action="" method="post">
-    <input type="email" name="email" placeholder="Email użytkownika">
+    <input type="email" name="email" placeholder="User Email">
     <br>
-    <input type="password" name="password" placeholder="Hasło">
+    <input type="password" name="password" placeholder="Password">
     <br>
     <br>
-    <button>Zaloguj</button>
+    <button>Log In</button>
 </form>
 
 

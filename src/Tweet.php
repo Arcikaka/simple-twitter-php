@@ -104,8 +104,8 @@ class Tweet
                 die;
             }
 
-            //aktualizujemy id  naszego obiektu z -1 na aktualne z bzy danych.
-            //Wiadomo wtedy ze to nie jest nowy obiekt
+            //update id for this new one saved in our db
+            //now we knows that this isn't new object
 
             $this->id = $conn->lastInsertId();
         } else {

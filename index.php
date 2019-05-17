@@ -24,8 +24,8 @@ $userSession = $_SESSION['user'];
 
 </div>
 <?php
-//zakladamy, ze strony sa wybierane przez parametr GET -> page
-// np. index.php?page=login etc
+//our pages are set by GET parameter
+// for example: index.php?page=login etc
 
 if(isset($_GET['page']) && file_exists(__DIR__ . '/pages/' . $_GET['page'] . '.php') && strpos('..',$_GET['page']) === false){
     include __DIR__ . '/pages/' . $_GET['page'] . '.php';

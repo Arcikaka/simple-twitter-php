@@ -1,12 +1,12 @@
 <?php
-//obiekt klasy odpowiada jednemu rzedowi wierszowi w tabeli users
-//identyczne wlasciwosci jak kolumni w tabeli
+//object of the class is equal one row in our table
+//that's why we have identical variables as set in the table
 class User
 {
     /**
      * @var int
      */
-    private $id; //tylko getter, nikt nie może nadpisac id
+    private $id; //only getter, no one can set id
     /**
      * @var string
      */
@@ -23,8 +23,8 @@ class User
 
     public function __construct()
     {
-        $this->id = -1; //ustawiamy -1 by wiedziec, że to nowy obiekt. Auto INC w bazie nigdy nie nada takiego id
-        //puste wartosci poniewawsz domyslnie sa null a gdyby kolumna miała NOT NULL to "rzuci" błędem
+        $this->id = -1; //we set id to -1 to knows that this is new object. Auto Increment never set id like this
+        //the rest we set to empty, because in default they are null
         $this->username = "";
         $this->email = "";
         $this->hashPass = "";
@@ -91,14 +91,14 @@ class User
     public function saveToDB(PDO $conn)
     {
 
-        //sprawdzam czy jest to nowy obiekt(rekord) czyli id = -1
+        //we check if this is new object with id -1
 
         if ($this->id === -1) {
-            //zapisujemy rekord do bazy
-            //stworzony szablon zapisu do bazy
+            //we save record to db
+            //here we prepare query
             $stmt = $conn->prepare("INSERT INTO Users SET username = :username, email = :email,hashPass = :hashPass");
 
-            //zapisujemy do bazy
+            //save to db
             try {
                 $result = $stmt->execute([
                     'username' => $this->username,
@@ -111,8 +111,8 @@ class User
                 die;
             }
 
-            //aktualizujemy id  naszego obiektu z -1 na aktualne z bzy danych.
-            //Wiadomo wtedy ze to nie jest nowy obiekt
+            //now we can update id to new one set in our db
+            //now we now, that this isn't new object
 
             $this->id = $conn->lastInsertId();
         } else {

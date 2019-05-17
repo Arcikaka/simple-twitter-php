@@ -61,20 +61,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comment = Comment::loadAllCommentsByPostId($conn, $tweetId);
         $user = User::loadUserById($conn, $userId);
 
-        echo '<div><h1>Użytkownik : <a href="index.php?page=allUserTweets&id=' . $tweet->getUserId() . '">' . $user->getUsername() . ' </a></div></h1><br>
-                <div><a href="index.php?page=singleTweet&id=' . $tweet->getId() . '">Tweet:</a><br>' . $tweet->getTweet() . '</div></br><div>Data utworzenia: ' . $tweet->getCreationDate() . '<br><hr>';
+        echo '<div><h1>User : <a href="index.php?page=allUserTweets&id=' . $tweet->getUserId() . '">' . $user->getUsername() . ' </a></div></h1><br>
+                <div><a href="index.php?page=singleTweet&id=' . $tweet->getId() . '">Tweet:</a><br>' . $tweet->getTweet() . '</div></br><div>Creation date: ' . $tweet->getCreationDate() . '<br><hr>';
         foreach ($comment as $key => $singleComment) {
             $userCommentId = $singleComment->getUserId();
             $userComment = new User();
             $userCommenter = $userComment::loadUserById($conn, $userCommentId);
-            echo '<div>Komentarze : <br>
-                    <h5><div>Komentarz o id : ' . $singleComment->getId() . '<br></div>
+            echo '<div>Comments : <br>
+                    <h5><div>Comment id : ' . $singleComment->getId() . '<br></div>
                     <div>' . $singleComment->getText() . '</div><br>
-                    Stworzony przez :' . $userCommenter->getUsername() . ' dnia: ' . $singleComment->getCreationDate() . '<hr></h5>';
+                    Created by :' . $userCommenter->getUsername() . ' on: ' . $singleComment->getCreationDate() . '<hr></h5>';
         }
         echo '<div>
                 <form action="" method="post">
-                <h6>Dodaj nowy komentarz:</h6>
+                <h6>Add new comment!:</h6>
                 <input type="text" name="comment" placeholder = "What you Think about this?">
                 <input type="hidden" name="postId" value="' . $tweet->getID() . '">
                 <input type="submit" name="send" value="Comment">

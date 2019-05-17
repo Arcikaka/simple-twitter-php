@@ -51,7 +51,7 @@ class Message
                     'creationDate' => $this->creationDate,
                     'sentBy' => $this->sendBy,
                     'sentTo' => $this->sendTo,
-                    'seem' => $this->seen
+                    'seen' => $this->seen
                 ]);
 
             } catch (PDOException $e) {
@@ -62,13 +62,13 @@ class Message
         } else {
             try {
                 $stmt = $conn->prepare(
-                    'UPDATE MessageMailbox SET message=:message, creationDate =:creationDate, sendBy =:sentBy, sendTo=:sentTo WHERE id=:id');
+                    'UPDATE MessageMailbox SET message=:message, creationDate =:creationDate, sendBy =:sentBy, sendTo=:sentTo, seen=:seen WHERE id=:id');
                 $result = $stmt->execute([
                     'message' => $this->message,
                     'creationDate' => $this->creationDate,
                     'sentBy' => $this->sendBy,
                     'sentTo' => $this->sendTo,
-                    'seem' => $this->seen,
+                    'seen' => $this->seen,
                     'id' => $this->id
                 ]);
             } catch (PDOException $e) {

@@ -130,7 +130,6 @@ class Comment
         }
         return $ret;
     }
-
     public function delete(PDO $conn)
     {
         if ($this->id != -1) {

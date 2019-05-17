@@ -1,6 +1,6 @@
 <?php
-//ta podstrona dostepna jest dla nie zalogowanych
-echo 'rejestracja';
+//this part is available only for not logged
+echo 'register';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($username) > 0) {
         if (strlen($email) > 0) {
             if ($password == $password2 && strlen($password) > 0) {
-                //rejestrujemy użytkownika
+                //her you register a new user
                 $user = new User();
                 $user->setUsername($username);
                 $user->setEmail($email);
@@ -23,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             } else {
-                echo 'Wpisano puste hasło lub hasła nie są identyczne';
+                echo 'Password is empty or one passwords are not the same';
             }
 
         } else {
-            echo 'Wpisano pusty email';
+            echo 'Your email is empty';
         }
 
     } else {
-        echo 'Wpisałeś pustą nazwę użytkownika';
+        echo 'Your username is empty';
     }
 }
 ?>
