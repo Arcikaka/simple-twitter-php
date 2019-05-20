@@ -18,16 +18,21 @@ $userSession = $_SESSION['user'];
     <a href="index.php?page=login">Login</a>
     <a href="index.php?page=register">Register</a>
     <a href="index.php">Main Page</a>
-    <a href="index.php?page=allUserTweets&id=<?php echo $userSession['id'] ?>">My Tweets!</a>
-    <a href="index.php?page=messageReceive&id=<?php echo $userSession['id'] ?>">Message Received</a>
-    <a href="index.php?page=messageSend&id=<?php echo $userSession['id'] ?>">Message Send</a>
+    <?php if (isLogged()) {
+
+        echo '
+    <a href="index.php?page=allUserTweets&id=' . $userSession['id'] . '">My Tweets!</a>
+    <a href="index.php?page=messageReceive&id=' . $userSession['id'] . '">Message Received</a>
+    <a href="index.php?page=messageSend&id=' . $userSession['id'] . '">Message Send</a>';
+    }
+    ?>
 
 </div>
 <?php
 //our pages are set by GET parameter
 // for example: index.php?page=login etc
 
-if(isset($_GET['page']) && file_exists(__DIR__ . '/pages/' . $_GET['page'] . '.php') && strpos('..',$_GET['page']) === false){
+if (isset($_GET['page']) && file_exists(__DIR__ . '/pages/' . $_GET['page'] . '.php') && strpos('..', $_GET['page']) === false) {
     include __DIR__ . '/pages/' . $_GET['page'] . '.php';
 } else {
     include __DIR__ . '/pages/main.php';

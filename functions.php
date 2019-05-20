@@ -21,15 +21,22 @@ function addComment()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $text = trim($_POST['comment']);
-        if ($text < 160) {
+        if (strlen($text) < 160) {
             $userId = $userSession['id'];
-            $postId = $_POST['postId'];
-            $newComment = new Comment();
-            $newComment->setCreationDate();
-            $newComment->setText($text);
-            $newComment->setUserId($userId);
-            $newComment->setPostId($postId);
-            $newComment->saveToDB($conn);
+            $tweetId = $_POST['tweetId'];
+            if(is_null(Tweet::loadTweetById($tweetId))){
+                throw new Exception('Tweet doesnt exist');
+            }
+            try {
+                $newComment = new Comment();
+                $newComment->setCreationDate();
+                $newComment->setText($text);
+                $newComment->setUserId($userId);
+                $newComment->setPostId($tweetId);
+                $newComment->saveToDB($conn);
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
 
         }
         $singleTweet = Tweet::loadTweetById($conn, $postId);

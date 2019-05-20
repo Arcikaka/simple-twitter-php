@@ -1,11 +1,8 @@
 <?php
-
-
 require_once __DIR__ . '/../src/Tweet.php';
 require_once __DIR__ . '/../src/User.php';
 require_once __DIR__ . '/../src/Comment.php';
 require_once __DIR__ . '/../src/Message.php';
-require_once __DIR__ . '/../functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($_POST['send'] === 'Send') {

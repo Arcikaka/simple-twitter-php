@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'Tweet':
 
             $tweet = trim($_POST['tweet']);
-            if ($tweet < 160) {
+            if (strlen($tweet) < 160) {
                 $userId = $userSession['id'];
                 $newTweet = new Tweet();
                 $newTweet->setCreationDate();
@@ -24,16 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'Comment':
 
             $text = trim($_POST['comment']);
-            if ($text < 160) {
+            if (strlen($text) < 160) {
                 $userId = $userSession['id'];
-                $postId = $_POST['postId'];
-                $newComment = new Comment();
-                $newComment->setCreationDate();
-                $newComment->setText($text);
-                $newComment->setUserId($userId);
-                $newComment->setPostId($postId);
-                $newComment->saveToDB($conn);
+                $tweetId = $_POST['tweetId'];
+                if (is_null(Tweet::loadTweetById($tweetId))) {
+                    throw new Exception('Tweet doesnt exist');
+                }
+                try {
+                    $newComment = new Comment();
+                    $newComment->setCreationDate();
+                    $newComment->setText($text);
+                    $newComment->setUserId($userId);
+                    $newComment->setPostId($tweetId);
+                    $newComment->saveToDB($conn);
+                }catch(Exception $e){
+                    echo $e->getMessage();
+                }
             }
+
             break;
 
     }
@@ -76,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form action="" method="post">
                 <h6>Add new comment!:</h6>
                 <input type="text" name="comment" placeholder = "What you Think about this?">
-                <input type="hidden" name="postId" value="' . $tweet->getID() . '">
+                <input type="hidden" name="tweetId" value="' . $tweet->getID() . '">
                 <input type="submit" name="send" value="Comment">
                 </form>
                 </div>';
