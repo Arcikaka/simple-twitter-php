@@ -1,0 +1,9 @@
+{
+  "name": "Twitter",
+  "require": {},
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
+}
