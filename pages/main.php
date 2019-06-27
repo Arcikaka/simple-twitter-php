@@ -1,9 +1,6 @@
 <?php
-//dostepna dla zalogowanych
+//only for logged users
 checkLoginOrRedirect();
-require_once __DIR__ . '/../vendor/autoload.php';
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($_POST['send']) {
